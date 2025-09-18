@@ -9,8 +9,9 @@ export class UsersController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    // Removendo a senha da resposta por segurança
-    const { password, ...result } = await this.usersService.create(createUserDto);
+    const user = await this.usersService.create(createUserDto);
+    // Nunca retorne a senha, mesmo que seja o hash
+    const { password, ...result } = user;
     return result;
   }
 }
